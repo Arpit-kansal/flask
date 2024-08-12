@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}
+  Home
+{% endblock title %}
+{% block body  %}
+
+
+<div class="container my-3">
+           <form action="/" method="POST">
+            <fieldset>
+              <legend>Add Stock</legend>
+              <div class="mb-3">
+                <label for="TextInput" class="form-label">Item name</label>
+                <input type="text" id="item" name="item_name" class="form-control" placeholder="item name">
+              </div>
+              <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" id="quantity" name="quantity" class="form-control" min="0" placeholder="Quantity">
+              </div>
+              <div class="mb-3">
+                <label for="number" class="form-label">Purchase price</label>
+                <input type="number" id="purchase" name="purchase" class="form-control" placeholder="Purchase price">
+                </input>
+              </div>
+              <div class="mb-3">
+                <label for="number" class="form-label">MRP</label>
+                <input type="number" id="mrp" name="mrp" class="form-control" placeholder="MRP">
+                </input>
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </fieldset>
+          </form>
+        </div>
+    <div class="container my-3">
+        
+              {% if allstock|length == 0 %}
+                <div class="alert alert-dark" role="alert">
+                  No Stock
+                </div>
+              {% else %}
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">SNo</th>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Mrp</th>
+                    <th scope="col">Purchase</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                
+                
+                <tbody>
+                  <tr>
+              {% for stock in allstock %}
+              
+              
+                <td>{{loop.index}}</td>
+                <td>{{stock.item_name}}</td>
+                <td>{{stock.quantity}}</td>
+                <td>{{stock.purchase}}</td>
+                <td>{{stock.mrp}}</td>
+                <td><a href="/update/{{stock.sno}}" type="button" class="btn btn-outline-dark">Update</td>
+                <td><a href="/delete/{{stock.sno}}" type="button" class="btn btn-outline-dark">Delete</td>
+        </tr>
+                
+          {% endfor %}
+              
+      </tbody>  
+    </table>
+          {% endif %}
+          
+    </div>
+
+
+{% endblock body  %}
